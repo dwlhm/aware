@@ -123,8 +123,8 @@ export default function Warehouse(props) {
                 <div className="card-body fw-bold pt-3 pb-3">Room Conditions</div>
                 <div className="container pb-3 px-5">
                     <div className="row">
-                        <div className="col d-flex align-items-center">Temperature: <span className="text-primary fs-3 ml-2 fw-bold">30</span></div>
-                        <div className="col d-flex align-items-center">Humidity: <span className="text-primary fs-3 ml-2 fw-bold">30</span></div>
+                        <div className="col d-flex align-items-center">Temperature: <span className="text-primary fs-3 ml-2 fw-bold">32.3</span></div>
+                        <div className="col d-flex align-items-center">Humidity: <span className="text-primary fs-3 ml-2 fw-bold">88.9</span></div>
                     </div>
                 </div>
                 

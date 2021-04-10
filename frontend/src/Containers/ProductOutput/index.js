@@ -3,9 +3,7 @@ import QrReader from 'react-qr-scanner'
 
 export default function ProductOutput(props) {
 
-    const [itemsCode, setItemsCode] = useState("")
-    const [itemsName, setItemsName] = useState("")
-    const [itemsAmount, setItemsAmount] = useState("")
+    const [items, setItems] = useState({name: "", code: "", amount: ""})
     const [scanner, setScanner] = useState({delay: 100, result: "Arahkan QR Code ke Kamera"})
     
     const handleScan = data => {
@@ -16,6 +14,7 @@ export default function ProductOutput(props) {
                 delay: 100,
                 result: "Scan berhasil"
             })
+            setItems(dataParse)
             alert(dataParse)
         }
     }
@@ -47,19 +46,19 @@ export default function ProductOutput(props) {
                         <div className="row mb-3">
                             <label className="col-sm-4 col-form-label">Code</label>
                             <div className="col-sm-8">
-                                {itemsCode}
+                                {items.code}
                             </div>
                         </div>
                         <div className="row mb-3">
                             <label className="col-sm-4 col-form-label">Name</label>
                             <div className="col-sm-8">
-                                {itemsName}
+                                {items.name}
                             </div>
                         </div>
                         <div className="row mb-3">
                             <label className="col-sm-4 col-form-label">Amount</label>
                             <div className="col-sm-8">
-                                {itemsAmount}
+                                {items.amount}
                             </div>
                         </div>
                     </div>

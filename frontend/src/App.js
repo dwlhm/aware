@@ -18,9 +18,6 @@ function App() {
             </ul>
               <ul className="nav navbar-nav navbar-right">
                 <li className="nav-item">
-                  <Link className="nav-link" to="#">Cara Mendaftar</Link>
-                </li>
-                <li className="nav-item">
                   <Link className="nav-link" to="#">Profil</Link>
                 </li>
               </ul>
