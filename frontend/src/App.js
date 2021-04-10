@@ -34,7 +34,7 @@ function App() {
               <h2 className="m-0 pb-3" style={{color: 'white', borderBottomWidth: 1 + 'px', borderBottomStyle: 'solid', borderBottomColor: 'white' }}>DASHBOARD</h2>
             </Link>
             
-            <ul className="list-group">
+            <ul className="list-group"  id="beranda">
               <li className="list-group-item">
                 <Link to={`/product-input`}>
                   <div className="row">

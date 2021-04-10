@@ -101,7 +101,7 @@ export default function ProductInput(props) {
                         <div className="row mb-3">
                             <label for="inputAmount" className="fw-bold col-form-label text-center">QR Code</label>
                             <div className="col d-flex justify-content-center">
-                                <QRCode value={`{code:${itemsCode},name:${itemsName},amount:${itemsAmount}}`} size={200} />
+                                <QRCode value={`{"code":"${itemsCode}","name":"${itemsName}","amount":"${itemsAmount}"}`} size={200} />
                             </div>
                         </div>
                     </div>

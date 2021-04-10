@@ -5,12 +5,12 @@
   width:65px
 }
 
-li.list-group-item a {
+#beranda li.list-group-item a {
   color: white;
   text-decoration: none;
 }
 
-li.list-group-item {
+#beranda li.list-group-item {
   background: transparent;
   border-bottom-color: white;
 }

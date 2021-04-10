@@ -5,8 +5,8 @@ export default function ProductList(props) {
     const [list, setList] = useState([
         {code: "aefkfk2o", name: "Advantech Pro 2gb Phone", location: "Rak 2:2-3"},
         {code: "aefkfsk2o", name: "Samsung A52 32GB", location: "Rak 2:3-3"},
-        {code: "aefkfk2so", name: "Advantech Pro 2gb Phone", location: "Rak 2:2-4"},
-        {code: "aefkfk2so", name: "Advantech Pro 2gb Phone", location: "Rak 2:4-5"},
+        {code: "aefkfk2so", name: "realme Narzo 30A", location: "Rak 2:2-4"},
+        {code: "aefkfk2so", name: "Samsung Galaxy A02s", location: "Rak 2:4-5"},
     ])
 
     return(
