@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 
 export default function ProductList(props) {
 
@@ -9,20 +10,36 @@ export default function ProductList(props) {
         {code: "aefkfk2so", name: "Samsung Galaxy A02s", location: "Rak 2:4-5"},
     ])
 
+    useEffect(async () => {
+
+        await axios({
+          method: 'get',
+          url: 'http://localhost:3000/v1/cart?id=cart1',
+          headers: { 
+            'Content-Type': 'application/json'
+          },
+          responseType: 'stream'
+        })
+          .then(function (response) {
+            console.log(response.data.data)
+            setList(response.data.data)
+          })
+    }, 2000)
+
     return(
         <div>
-            <div className="card" style={{color: 'black'}}>
+
+            <div className="card m-0 p-0 border-0">
+
+            <div className="card bg-light border-0" style={{color: 'black'}}>
                 <div className="card-body fw-bold pt-3 pb-3">PRODUCT LIST</div>
             </div>
 
-            <div className="card mt-4 p-4">
-            <table class="table table-striped">
+            <table class="table table-borderless table-secondary">
             <thead>
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Code</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Location</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,9 +48,7 @@ export default function ProductList(props) {
                         return(
                             <tr>
                                 <th scope="row">{index + 1}</th>
-                                <td>{value.code}</td>
-                                <td>{value.name}</td>
-                                <td>{value.location}</td>
+                                <td>{value}</td>
                             </tr>
                         )
                     })}

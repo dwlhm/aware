@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import QrReader from 'react-qr-scanner'
+import axios from 'axios'
 
 export default function Warehouse(props) {
 
@@ -8,6 +9,7 @@ export default function Warehouse(props) {
     const [scanBarang, setScanBarang] = useState(false)
     const [troliId, setTroliId] = useState("")
     const [troliId1, setTroliId1] = useState("")
+    const [cond, setCond] = useState({temp: undefined, hum: undefined})
     const [beenScan, setBeenScan] = useState("-1")
     const [rak, setRak] = useState({
         rakId: [], 
@@ -113,6 +115,28 @@ export default function Warehouse(props) {
         height: 240,
         width: 320,
     }
+
+    useEffect(() => {
+        
+        var config = {
+            method: "get",
+            url:
+              "https://platform.antares.id:8443/~/antares-cse/antares-id/AutomaticWarehouse/A-Ware/la",
+            headers: {
+              "X-M2M-Origin": "86de344c2859f09e:4fbf992fe0ca59d3",
+              "Content-Type": "application/json"
+            }
+          };
+          
+          axios(config)
+            .then(function (response) {
+              console.log(JSON.stringify(response.data));
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+            
+    }, 2000)
     return(
         <div>
             <div className="card" style={{color: 'black'}}>

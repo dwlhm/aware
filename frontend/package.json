@@ -3,12 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@tensorflow-models/coco-ssd": "^2.2.2",
+    "@tensorflow/tfjs": "^3.8.0",
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
     "axios-hooks": "^2.6.1",
+    "base64-arraybuffer": "^1.0.1",
     "bootstrap": "^4.6.0",
+    "leaflet": "^1.7.1",
+    "mqtt": "^4.2.8",
     "qrcode.react": "^1.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -16,6 +21,9 @@
     "react-qr-scanner": "^1.0.0-alpha.7",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "react-webcam": "^6.0.0",
+    "read-blob": "^1.1.2",
+    "uuid": "^8.3.2",
     "web-vitals": "^1.1.1"
   },
   "scripts": {

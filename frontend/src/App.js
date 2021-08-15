@@ -6,15 +6,16 @@ import ProductInput from './Containers/ProductInput';
 import ProductOutput from './Containers/ProductOutput';
 import Warehouse from './Containers/Warehouse';
 import ProductList from './Containers/ProductList';
+import Scanner from './Containers/Scanner'
 
 function App() {
   return (
-    <div>
+    <div style={{minHeight: 100 + 'vh'}}>
       <Router>
-      <nav className="navbar navbar-fixed-top p-0 navbar-expand-lg navbar-light" style={{backgroundColor: '#D3D3D3'}}>
-        <div className="container">
+      <nav className="navbar navbar-fixed-top p-0 navbar-expand-lg navbar-light">
+        <div className="container-fluid bg-warning">
             <ul className="nav navbar-nav">
-            <li><img className="image" src="a.jpg" id="imgBerandaBrand" /> AUTOMATION WAREHOUSE</li>
+            <li><img className="image" src="a.jpg" id="imgBerandaBrand" style={{width: 6 + 'rem'}} /> AUTOMATION WAREHOUSE</li>
             </ul>
               <ul className="nav navbar-nav navbar-right">
                 <li className="nav-item">
@@ -24,62 +25,59 @@ function App() {
         </div>
       </nav>
 
-      <div className="container pt-3 pb-3">
-        <div className="row">
-          <div className="col col-md-auto">
+      <div className="container-fluid p-0">
+        <div className="container-fluid row pr-0" style={{minHeight: 100 + 'vh'}}>
+          <div className="col col-md-auto bg-primary p-4">
             <Link to="/" style={{textDecoration: 'none'}}>
               <h2 className="m-0 pb-3" style={{color: 'white', borderBottomWidth: 1 + 'px', borderBottomStyle: 'solid', borderBottomColor: 'white' }}>DASHBOARD</h2>
             </Link>
             
-            <ul className="list-group"  id="beranda">
-              <li className="list-group-item">
-                <Link to={`/product-input`}>
+            <ul className="list-group border-0 bg-transparent"  id="beranda">
+              <li className="list-group-item border-0 p-0 my-2 bg-transparent">
+                <Link to={`/scanner`} className="btn btn-dark border-0" style={{width: 100 + '%' }}>
                   <div className="row">
                     <div className="col col-md-auto">
                       <img src="hand.png" />
                     </div>
                     <div className="col d-flex align-items-center">
-                      Product Input
+                      Scanner
                     </div>
                   </div>
                 </Link>
               </li>
-              <li className="list-group-item"><Link to={`/product-output`}>
-                <div className="row">
-                  <div className="col col-md-auto">
-                    <img src="group.png" />
+
+              <li className="list-group-item border-0 p-0 my-2 bg-transparent">
+                <Link to={`/product-output`} className="btn btn-dark border-0" style={{width: 100 + '%' }}>
+                  <div className="row">
+                    <div className="col col-md-auto">
+                      <img src="group.png" />
+                    </div>
+                    <div className="col d-flex align-items-center">
+                      Product Output
+                    </div>
                   </div>
-                  <div className="col d-flex align-items-center">
-                    Product Output
+                </Link>
+              </li>
+
+              <li className="list-group-item border-0 p-0 my-2 bg-transparent">
+                <Link to={`/warehouse`} className="btn btn-dark border-0" style={{width: 100 + '%' }}>
+                  <div className="row">
+                    <div className="col col-md-auto">
+                      <img src="key.png" />
+                    </div>
+                    <div className="col d-flex align-items-center">
+                      Warehouse
+                    </div>
                   </div>
-                </div>
-              </Link></li>
-              <li className="list-group-item"><Link to={`/warehouse`}>
-                <div className="row">
-                  <div className="col col-md-auto">
-                    <img src="key.png" />
-                  </div>
-                  <div className="col d-flex align-items-center">
-                    Warehouse
-                  </div>
-                </div>
-              </Link></li>
-              <li className="list-group-item"><Link to={`/product-list`}>
-                <div className="row">
-                  <div className="col col-md-auto">
-                    <img src="glass.png" />
-                  </div>
-                  <div className="col d-flex align-items-center">
-                  Product List
-                  </div>
-                </div>
-              </Link></li>
+                </Link>
+              </li>
+
             </ul>
           </div>
-          <div className="col">
+          <div className="col pr-0 py-0">
           <Switch>
             <Route exact path="/">
-              <Beranda />
+              <ProductList />
             </Route>
             <Route path="/product-input">
               <ProductInput />
@@ -92,6 +90,9 @@ function App() {
             </Route>
             <Route path="/product-list">
               <ProductList />
+            </Route>
+            <Route path="/scanner">
+              <Scanner />
             </Route>
           </Switch>
           </div>

@@ -1,4 +1,4 @@
-#imgBerandaBrand {
+/*#imgBerandaBrand {
   margin: 0px;
   padding: 0px;
   color:white;
@@ -13,4 +13,9 @@
 #beranda li.list-group-item {
   background: transparent;
   border-bottom-color: white;
+}*/
+
+#beranda img {
+    width: 3rem;
+    height: auto;
 }
