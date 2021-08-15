@@ -123,8 +123,11 @@ export default function Warehouse(props) {
             url:
               "https://platform.antares.id:8443/~/antares-cse/antares-id/AutomaticWarehouse/A-Ware/la",
             headers: {
-              "X-M2M-Origin": "86de344c2859f09e:4fbf992fe0ca59d3",
-              "Content-Type": "application/json"
+                "X-M2M-Origin": "86de344c2859f09e:4fbf992fe0ca59d3",
+                'Content-Type': "application/json;ty=4",
+                'Accept': "application/json",
+                'Cache-Control': "no-cache",
+                'Postman-Token': "0314aaab-c1bf-4b4c-90c8-7b2865e26965"
             }
           };
           
@@ -136,7 +139,7 @@ export default function Warehouse(props) {
               console.log(error);
             });
             
-    }, 2000)
+    })
     return(
         <div>
             <div className="card" style={{color: 'black'}}>
@@ -203,7 +206,7 @@ export default function Warehouse(props) {
                                 
                                 {!scanBarang ? null : <QrReader delay={scanner.delay} style={previewStyle} className="shadow-sm bg-body rounded" onError={handleError} onScan={handleScanBarang} />}
 
-                                <div class={`alert text-center ${beenScan == "-1" ? "alert-primary" : beenScan == "0" ? "alert-danger fw-bold" : "alert-success"}`} role="alert">
+                                <div className={`alert text-center ${beenScan == "-1" ? "alert-primary" : beenScan == "0" ? "alert-danger fw-bold" : "alert-success"}`} role="alert">
                                     {beenScan == "-1" ? "Tekan Scan Barang untuk menscan barang" : beenScan == "0" ? "Arahkan QR Code ke Kamera" : "Pengambilan barang berhasil"}
                                 </div>
                                 
