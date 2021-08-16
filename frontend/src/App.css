@@ -19,3 +19,7 @@
     width: 3rem;
     height: auto;
 }
+
+#centerMap {
+  margin: 0 auto
+}

@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import QrReader from 'react-qr-scanner'
 import axios from 'axios'
+import {  TileLayer, MapContainer, Popup, Marker } from "react-leaflet"
+import "leaflet/dist/leaflet.css";
+import { Samy, SvgProxy } from 'react-samy-svg'
 
 export default function Warehouse(props) {
 
@@ -9,14 +12,28 @@ export default function Warehouse(props) {
     const [scanBarang, setScanBarang] = useState(false)
     const [troliId, setTroliId] = useState("")
     const [troliId1, setTroliId1] = useState("")
-    const [cond, setCond] = useState({temp: undefined, hum: undefined})
+    const [cond, setCond] = useState({temp: 'loading', hum: 'loading'})
     const [beenScan, setBeenScan] = useState("-1")
-    const [rak, setRak] = useState({
-        rakId: [], 
-        rakStatus: [],
-        barangName: [],
-        barangCode: []
-    })
+    const [rak, setRak] = useState([
+        {
+            name: 'r1',
+            empty: 'full'
+        },
+        {
+            name: 'r2',
+            empty: 'full'
+        },
+        {
+            name: 'r3',
+            empty: 'full'
+        },
+        {
+            name: 'r4',
+            empty: 'full'
+        }
+    ])
+    
+    const mapRef = useRef(null)
 
     const openCartScanner = event => {
         event.preventDefault();
@@ -118,46 +135,101 @@ export default function Warehouse(props) {
 
     useEffect(() => {
         
-        var config = {
-            method: "get",
-            url:
-              "https://platform.antares.id:8443/~/antares-cse/antares-id/AutomaticWarehouse/A-Ware/la",
-            headers: {
-                "X-M2M-Origin": "86de344c2859f09e:4fbf992fe0ca59d3",
-                'Content-Type': "application/json;ty=4",
-                'Accept': "application/json",
-                'Cache-Control': "no-cache",
-                'Postman-Token': "0314aaab-c1bf-4b4c-90c8-7b2865e26965"
-            }
-          };
-          
-          axios(config)
-            .then(function (response) {
-              console.log(JSON.stringify(response.data));
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
+        const intervalId = setInterval(() => {
+
+            async function fetchData() {
             
-    })
+                let config = {
+                  method: "get",
+                  url:
+                    "http://localhost:3000/v1/room"
+                };
+
+                await axios(config)
+                  .then(function (response) {
+                    setCond({temp: response.data.data.Temperature, hum: response.data.data.Humudity})
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  })
+
+                  await axios({
+                    method: 'get',
+                    url: 'http://localhost:3000/v1/cart?id=cart1',
+                    headers: { 
+                      'Content-Type': 'application/json'
+                    },
+                    responseType: 'stream'
+                  })
+                    .then(function (response) {
+                      console.log(response.data.data)
+                      setRak([
+                          {
+                              name: response.data.data[0].rak ? response.data.data[0].rak : undefined,
+                              empty: response.data.data[0].rak ? 'full' : 'empty'
+                          },
+                          {
+                            name: response.data.data.length > 1 ? response.data.data[1].rak :  undefined,
+                            empty: response.data.data.length > 1 ? 'full' : 'empty'
+                        },
+                        {
+                            name: response.data.data.length > 2 ? response.data.data[2].rak :  undefined,
+                            empty: response.data.data.length > 2 ? 'full' : 'empty'
+                        },
+                        {
+                            name: response.data.data.length > 3 ? response.data.data[3].rak :  undefined,
+                            empty: response.data.data.length > 3 ? 'full' : 'empty'
+                        }
+                      ])
+                    })
+
+            }
+
+            fetchData()
+        }, 3000)
+
+        return () => clearInterval(intervalId)
+            
+    }, [])
+
+    const position = [51.505, -0.09]
+
     return(
-        <div>
-            <div className="card" style={{color: 'black'}}>
+        <div className="py-4">
+            <div className="card bg-dark text-white rounded">
                 <div className="card-body fw-bold pt-3 pb-3">WAREHOUSE</div>
             </div>
 
-            <div className="card mt-4" style={{color: 'black'}}>
+            <div className="card mt-4 bg-danger" style={{color: 'black'}}>
                 <div className="card-body fw-bold pt-3 pb-3">Room Conditions</div>
                 <div className="container pb-3 px-5">
                     <div className="row">
-                        <div className="col d-flex align-items-center">Temperature: <span className="text-primary fs-3 ml-2 fw-bold">32.3</span></div>
-                        <div className="col d-flex align-items-center">Humidity: <span className="text-primary fs-3 ml-2 fw-bold">88.9</span></div>
+                        <div className="col d-flex align-items-center">Temperature: <span className="text-primary fs-3 ml-2 fw-bold">{cond.temp}</span></div>
+                        <div className="col d-flex align-items-center">Humidity: <span className="text-primary fs-3 ml-2 fw-bold">{cond.hum}</span></div>
                     </div>
                 </div>
                 
             </div>
 
-            <div className="card mt-4 p-4">
+            <div className="card mt-4 p-4 d-flex justify-content-center">
+                <Samy 
+                    id="centerMap"
+                    path="./maps.svg"
+                    width={50 + 'rem'}
+                    height={40 + 'rem'}
+                >
+                    <SvgProxy selector="#r1" fill={rak[0].empty == 'full' ? 'blue' : 'black'} />
+                    <SvgProxy selector="#r2" fill={rak[1].empty == 'full' ? 'blue' : 'black'} />
+                    <SvgProxy selector="#r4" fill={rak[2].empty == 'full' ? 'blue' : 'black'} />
+                    <SvgProxy selector="#r5" fill={rak[3].empty == 'full' ? 'blue' : 'black'} />
+
+                </Samy>
+                {/*<MapContainer center={position} zoom={13} scrollWheelZoom={false}>
+                    <TileLayer
+                        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    />
+                </MapContainer>
                 <div>
                     <div className="row">
                         <div className="col">
@@ -234,9 +306,9 @@ export default function Warehouse(props) {
                         </div>
                     </div>
                     <div className="text-center"><span className="badge badge-primary">Warehouse Back</span></div>
-                </div>
-            </div>
-           
+                    </div>*/}
+            
+           </div>
 
         </div>
     )

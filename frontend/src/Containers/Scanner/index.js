@@ -68,7 +68,7 @@ export default function Scanner(props) {
             .then(async prediction => {
                 console.log(listProduct)
 
-                let item = listProduct
+                let item = []
                 for (var i = 0; i < prediction.length; i++) {
                     await item.push(prediction[i].class)
                 }
@@ -108,7 +108,7 @@ export default function Scanner(props) {
                     <h4 className="text-center mb-3">Result</h4>
                     { !dataSaved ? <div className="d-flex justify-content-center mb-3"><QRCode value={`{"code":"${specialCode}"}`} size={200} /></div> : <div className="alert alert-warning text-center">Data belum tersedia.</div>}
                     { !dataSaved ? <ol>{listItem}</ol> : null}
-                    { !dataSaved ? <div className="btn btn-dark btn-md btn-block" onClick={saveData}>Simpan Data</div> : null}
+                      { !dataSaved ? <div className="btn btn-dark btn-md btn-block" onClick={saveData}>Simpan Data</div> : null}
                 </div>
             </div>
           </div>

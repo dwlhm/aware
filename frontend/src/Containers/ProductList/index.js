@@ -10,24 +10,34 @@ export default function ProductList(props) {
         {code: "aefkfk2so", name: "Samsung Galaxy A02s", location: "Rak 2:4-5"},
     ])
 
-    useEffect(async () => {
+    const [ listData, setListData ] = useState([])
 
-        await axios({
-          method: 'get',
-          url: 'http://localhost:3000/v1/cart?id=cart1',
-          headers: { 
-            'Content-Type': 'application/json'
-          },
-          responseType: 'stream'
-        })
-          .then(function (response) {
-            console.log(response.data.data)
-            setList(response.data.data)
-          })
-    }, 2000)
+    useEffect(() => {
+
+        async function fetchData() {
+            
+            await axios({
+              method: 'get',
+              url: 'http://localhost:3000/v1/cart?id=cart1',
+              headers: { 
+                'Content-Type': 'application/json'
+              },
+              responseType: 'stream'
+            })
+              .then(function (response) {
+                console.log(response.data.data)
+                setListData(response.data.data)
+              }).catch(error => {
+                console.log(error)
+              })
+        }
+
+        fetchData()
+    
+    }, [])
 
     return(
-        <div>
+        <div className="py-4">
 
             <div className="card m-0 p-0 border-0">
 
@@ -40,15 +50,19 @@ export default function ProductList(props) {
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Code</th>
+                    <th scope="col">Isi</th>
+                    <th scope="col">Cart</th>
                 </tr>
             </thead>
             <tbody>
                 
-                    {list.map((value, index) => {
+                    {listData.map((value, index) => {
                         return(
                             <tr>
                                 <th scope="row">{index + 1}</th>
-                                <td>{value}</td>
+                                <td>{value.code}</td>
+                                <td>{value.class}</td>
+                                <td>{value.cart}</td>
                             </tr>
                         )
                     })}

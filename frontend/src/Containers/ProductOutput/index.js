@@ -1,10 +1,40 @@
 import React, { useState } from 'react'
 import QrReader from 'react-qr-scanner'
+import axios from 'axios'
 
 export default function ProductOutput(props) {
 
-    const [items, setItems] = useState({name: "", code: "", amount: ""})
+    const [items, setItems] = useState({code: ""})
     const [scanner, setScanner] = useState({delay: 100, result: "Arahkan QR Code ke Kamera"})
+    const [ listData, setListData ] = useState({
+        class: '',
+        cart: ''
+    })
+    const [ isDeleted, setIsDeleted ] = useState(false)
+
+    const ambilClick = event => {
+        event.preventDefault()
+
+        async function fetchData() {
+            
+            await axios({
+              method: 'delete',
+              url: `http://localhost:3000/v1/product?qr=${items.code}&cart=${listData.cart}`,
+              headers: { 
+                'Content-Type': 'application/json'
+              },
+              responseType: 'stream'
+            })
+              .then(function (response) {
+                console.log(response.data.data)
+                setIsDeleted(true)
+              }).catch(error => {
+                console.log(error)
+              })
+        }
+
+        fetchData()
+    }
     
     const handleScan = data => {
         console.log(data != null ? data.text : data)
@@ -15,7 +45,30 @@ export default function ProductOutput(props) {
                 result: "Scan berhasil"
             })
             setItems(dataParse)
-            alert(dataParse)
+
+            console.log(dataParse)
+
+            async function fetchData() {
+            
+                await axios({
+                  method: 'get',
+                  url: 'http://localhost:3000/v1/product?qr=' + dataParse.code,
+                  headers: { 
+                    'Content-Type': 'application/json'
+                  },
+                  responseType: 'stream'
+                })
+                  .then(function (response) {
+                    console.log(response.data.data)
+                    setListData(response.data.data)
+                    setIsDeleted(false)
+                  }).catch(error => {
+                    console.log(error)
+                  })
+            }
+    
+            fetchData()
+
         }
     }
 
@@ -29,8 +82,8 @@ export default function ProductOutput(props) {
     }
 
     return(
-        <div>
-            <div className="card" style={{color: 'black'}}>
+        <div className="py-4">
+            <div className="card bg-dark text-white rounded">
                 <div className="card-body fw-bold pt-3 pb-3">PRODUCT OUTPUT</div>
             </div>
 
@@ -50,17 +103,18 @@ export default function ProductOutput(props) {
                             </div>
                         </div>
                         <div className="row mb-3">
-                            <label className="col-sm-4 col-form-label">Name</label>
+                            <label className="col-sm-4 col-form-label">Isi Paket</label>
                             <div className="col-sm-8">
-                                {items.name}
+                                {listData.class}
                             </div>
                         </div>
                         <div className="row mb-3">
-                            <label className="col-sm-4 col-form-label">Amount</label>
+                            <label className="col-sm-4 col-form-label">Cart</label>
                             <div className="col-sm-8">
-                                {items.amount}
+                                {listData.cart}
                             </div>
                         </div>
+                        {scanner.result == "Scan berhasil" && !isDeleted ? <div className="btn btn-danger" onClick={ambilClick}>Telah Diambil</div> : null}
                     </div>
                 </div>
             </div>
