@@ -31,3 +31,41 @@ a.linkList:after {
 a.linkList {
   color:#212529;
 }
+.bm-menu {
+  width: 100%;
+}
+.bm-item {
+  height: 100%;
+}
+#navTop {
+  margin-left: 4.5rem;
+  padding-left: 0;
+}
+button#react-burger-menu-btn {
+  width: 4.5rem!important;
+  background: #ffc107!important;
+  height: 4.5rem!important;
+  border: none;
+}
+button#react-burger-menu-btn::before {
+  content: "☰";
+  color: #000;
+  height: 100%;
+  font-size: 2rem;
+  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  justify-content: center;
+}
+.bm-menu-wrap {
+  left: 0!important;
+}
+.bm-menu-wrap {
+  left: 0!important;
+}
