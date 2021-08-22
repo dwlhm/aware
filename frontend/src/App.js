@@ -1,14 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
-import { Route, BrowserRouter as Router, Switch, Link } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Switch, Link, useLocation, useParams } from 'react-router-dom';
 import Beranda from './Containers/Beranda';
 import ProductInput from './Containers/ProductInput';
 import ProductOutput from './Containers/ProductOutput';
 import Warehouse from './Containers/Warehouse';
 import ProductList from './Containers/ProductList';
 import Scanner from './Containers/Scanner'
+import Detail from './Containers/Detail'
 
 function App() {
+
   return (
     <div style={{minHeight: 100 + 'vh'}}>
       <Router>
@@ -94,6 +96,9 @@ function App() {
             <Route path="/scanner">
               <Scanner />
             </Route>
+            <Route path="/:code">
+              <Detail />
+            </Route>
           </Switch>
           </div>
         </div>
@@ -106,5 +111,23 @@ function App() {
     </div>
   );
 }
+
+function Child() {
+
+  let { code } = useParams()
+  return (
+    <div>
+      {code ? (
+        <h3>
+          The <code>name</code> in the query string is &quot;{code}
+          &quot;
+        </h3>
+      ) : (
+        <h3>There is no name in the query string</h3>
+      )}
+    </div>
+  );
+}
+
 
 export default App;

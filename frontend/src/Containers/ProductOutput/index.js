@@ -19,7 +19,7 @@ export default function ProductOutput(props) {
             
             await axios({
               method: 'delete',
-              url: `http://localhost:3000/v1/product?qr=${items.code}&cart=${listData.cart}`,
+              url: `https://awaresrv.herokuapp.com/v1/product?qr=${items.code}`,
               headers: { 
                 'Content-Type': 'application/json'
               },
@@ -52,7 +52,7 @@ export default function ProductOutput(props) {
             
                 await axios({
                   method: 'get',
-                  url: 'http://localhost:3000/v1/product?qr=' + dataParse.code,
+                  url: 'https://awaresrv.herokuapp.com/v1/product?qr=' + dataParse.code,
                   headers: { 
                     'Content-Type': 'application/json'
                   },

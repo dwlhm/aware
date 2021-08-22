@@ -37,7 +37,7 @@ export default function Scanner(props) {
 
         await axios({
           method: 'post',
-          url: 'http://localhost:3000/v1/product',
+          url: 'https://awaresrv.herokuapp.com/v1/product',
           headers: { 
             'Content-Type': 'application/json'
           },

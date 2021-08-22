@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 export default function ProductList(props) {
 
@@ -18,7 +19,7 @@ export default function ProductList(props) {
             
             await axios({
               method: 'get',
-              url: 'http://localhost:3000/v1/cart?id=cart1',
+              url: 'https://awaresrv.herokuapp.com/v1/list?type=product',
               headers: { 
                 'Content-Type': 'application/json'
               },
@@ -34,7 +35,7 @@ export default function ProductList(props) {
 
         fetchData()
     
-    }, [])
+    }, [listData])
 
     return(
         <div className="py-4">
@@ -60,7 +61,11 @@ export default function ProductList(props) {
                         return(
                             <tr>
                                 <th scope="row">{index + 1}</th>
-                                <td>{value.code}</td>
+                                <td>
+                                    <Link to={`/${value.code}`} className='linkList'>
+                                        {value.code}
+                                    </Link>
+                                </td>
                                 <td>{value.class}</td>
                                 <td>{value.cart}</td>
                             </tr>
