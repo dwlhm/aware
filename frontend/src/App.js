@@ -30,8 +30,8 @@ function App() {
 
               <div className="container-fluid p-0">
               
-                <div className="container-fluid row pr-0" style={{minHeight: 100 + 'vh'}}>
-                  <Menu>
+                <div className="container-fluid pl-0 ml-0" style={{minHeight: 100 + 'vh'}}>
+                  <Menu id="menu">
                     <div className="col col-md-auto bg-primary p-4">
                       <Link to="/" style={{textDecoration: 'none'}}>
                         <h2 className="m-0 pb-3" style={{color: 'white', borderBottomWidth: 1 + 'px', borderBottomStyle: 'solid', borderBottomColor: 'white' }}>DASHBOARD</h2>
